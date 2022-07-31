@@ -105,3 +105,6 @@ dist
 
 # Angular build output
 .angular/
+
+# Angular env files
+src/environments/
