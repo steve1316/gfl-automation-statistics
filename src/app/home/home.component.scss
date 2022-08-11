@@ -1,0 +1,15 @@
+@use "../../styles.scss" as styles;
+
+.tabBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  margin: 32px 16px 0 16px;
+  height: 350px;
+  @media screen and (max-width: styles.$medium) {
+    width: 100%;
+  }
+}
