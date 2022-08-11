@@ -34,7 +34,7 @@ db.sequelize
     console.error('Failed to sync database: ', err.message);
   });
 
-app.use('/api/user', userRoutes);
+app.use('/api/auth/user', userRoutes);
 
 ////////////////////
 // Start the Express server on the specified port.
