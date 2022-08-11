@@ -1,0 +1,31 @@
+<div id="login" class="paperContainer">
+  <form class="formContainer" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill" class="textField">
+      <mat-label>Username</mat-label>
+      <input
+        matInput
+        placeholder="Enter your username"
+        formControlName="username"
+      />
+      <mat-error *ngIf="username && username.invalid"
+        >Username is <strong>required</strong></mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="textField">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        placeholder="Enter your password"
+        formControlName="password"
+      />
+      <mat-error *ngIf="password && password.invalid"
+        >Password is <strong>required</strong></mat-error
+      >
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" [disabled]="loginForm.invalid">
+      Login
+    </button>
+  </form>
+</div>
