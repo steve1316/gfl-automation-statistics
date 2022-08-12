@@ -6,6 +6,7 @@ import {
   Validators,
   FormBuilder,
 } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,11 @@ export class RegisterComponent implements OnInit {
     email: '',
   });
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {}
 
@@ -49,12 +54,29 @@ export class RegisterComponent implements OnInit {
     if (userControl && passwordControl && emailControl) {
       this.authService
         .register(userControl.value, passwordControl.value, emailControl.value)
-        .subscribe((data) => {
-          console.log('Account created successfully.');
+        .subscribe({
+          next: () => {
+            this.snackBar.open('Account created successfully.');
+          },
+          error: (err) => {
+            this.snackBar.open(
+              `Account creation failed with status code ${err.status}`,
+              '',
+              {
+                duration: 3000,
+                panelClass: ['mat-toolbar', 'mat-warn'],
+              }
+            );
+          },
         });
     } else {
-      console.warn(
-        'Control(s) is null so cannot continue with form submission.'
+      this.snackBar.open(
+        'Control(s) is null so cannot continue with form submission.',
+        '',
+        {
+          duration: 3000,
+          panelClass: ['mat-toolbar', 'mat-warn'],
+        }
       );
     }
   }
