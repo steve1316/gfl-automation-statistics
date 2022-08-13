@@ -1,0 +1,18 @@
+$myColor: #01bf71;
+
+.title {
+  transition: 0.3s all ease;
+  &:hover {
+    color: $myColor;
+  }
+}
+
+.empty {
+  flex-grow: 1;
+}
+
+.logoutButton {
+  background-color: $myColor;
+  display: flex;
+  justify-content: flex-end;
+}

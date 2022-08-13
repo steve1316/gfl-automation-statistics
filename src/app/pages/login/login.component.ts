@@ -5,7 +5,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,11 @@ export class LoginComponent implements OnInit {
     email: '',
   });
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {}
 
@@ -41,8 +46,21 @@ export class LoginComponent implements OnInit {
     if (userControl && passwordControl) {
       this.authService
         .login(userControl.value, passwordControl.value)
-        .subscribe((data) => {
-          console.log(data);
+        .subscribe({
+          next: () => {
+            console.log('Login successful.');
+          },
+          error: (err) => {
+            console.warn(`Login unsuccessful with status code: ${err.status}`);
+            this.snackBar.open(
+              `Login unsuccessful with status code: ${err.status}`,
+              '',
+              {
+                duration: 3000,
+                panelClass: ['mat-toolbar', 'mat-warn'],
+              }
+            );
+          },
         });
     } else {
       console.warn(

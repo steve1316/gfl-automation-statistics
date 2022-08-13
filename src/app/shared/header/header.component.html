@@ -1,0 +1,14 @@
+<p>
+  <mat-toolbar>
+    <span class="title">GFL Automation Statistics</span>
+    <div class="empty"></div>
+    <button
+      mat-button
+      class="logoutButton"
+      *ngIf="isLoggedIn | async"
+      (click)="logout()"
+    >
+      Logout
+    </button>
+  </mat-toolbar>
+</p>
