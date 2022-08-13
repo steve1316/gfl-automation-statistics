@@ -15,11 +15,11 @@ export class HttpRequestInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     // Attach the JWT cookie to the request.
-    req = req.clone({
-      withCredentials: true,
+    const newRequest = req.clone({
+      headers: req.headers.set('authorization', 'TOKEN'),
     });
 
-    return next.handle(req);
+    return next.handle(newRequest);
   }
 }
 

@@ -53,16 +53,19 @@ export const login = async (req: Request, res: Response) => {
   if (foundUser) {
     const isValid = await bcrypt.compare(req.body.password, foundUser.password);
     if (isValid) {
-      let token = jwt.sign(
+      let jwtToken = jwt.sign(
         {
           id: foundUser.id,
-          username: foundUser.username,
-          password: foundUser.password,
         },
-        process.env.JWT_SECRET as string
+        process.env.JWT_SECRET as string,
+        {
+          expiresIn: '24h',
+        }
       );
 
-      res.status(200).json(token);
+      res.status(200).json({
+        token: jwtToken,
+      });
     } else {
       res.status(400).json({
         message: 'Password incorrect.',
